@@ -11,52 +11,82 @@ import isEmpty from "lodash/isEmpty"
 
 // import {mapDispatchToProps} from "../../../../ui-utils/commons"
 
-
+// const CssTextField = withStyles({
+//   root: {
+//     "& label.Mui-focused": {
+//       color: "green"
+//     },
+//     "& .MuiInput-underline:after": {
+//       borderBottomColor: "green"
+//     },
+//     "& .MuiOutlinedInput-root": {
+//       "& fieldset": {
+//         borderColor: "#00AAE4"
+//       },
+//       "&:hover fieldset": {
+//         borderColor: "green"
+//       },
+//       "&.Mui-focused fieldset": {
+//         borderColor: "green"
+//       }
+//     }
+//   }
+// })(TextField);
 
 const theme = createMuiTheme({
   overrides: {
     MuiInput: {
       underline: {
-        
         '&:after': {
-          borderBottom: '2px solid #83B6E9',
+          borderBottom: '2px solid #d81b60',
         },
         '&:before': {
-          borderBottom: '2px solid grey',
+          borderBottom: '2px solid #d81b60',
         },
-    
+        // '&:hover': {
+        //   borderBottom: '1px solid red',
+        // },
       },
-     
     },
     MuiFormLabel: {
-      focused: {
-        color: '#83B6E9 !important'
+      root: {
+        '&: MuiFormLabel-focused': {
+          // color:"red"color="primary"
+        }
       }
     }
-    
   },
 });
 
 const styles = theme => ({
   root: {
-    
     flexGrow: 1,
     // flexWrap: 'wrap',
     margin: "16px"
 
   },
-  
   margin: {
     width: "100%",
-   
+    color: "red",
+    // margin: "10px 10px 10px 10px"
+    // margin: theme.spacing(1),
   },
-  
 });
 
 class Feature extends React.Component {
   OnClickSubmit = async () => {
     const { enquiry } = this.props
-    
+    // let requestBody={
+    //   name:namee,
+    //   email:emaile,
+    //   subject:subjecte,
+    //   additional_info:additional_infoe
+    // }
+    // const response = await httpRequest({
+    //   endPoint: "https://us-central1-mihy-all.cloudfunctions.net/createEnquiry",
+    //   method: "post",
+    //   requestBody
+    // });
     if (this.validation()) {
       const { setStatesFromResponse } = this.props
       await axios.post("https://us-central1-mihy-all.cloudfunctions.net/createEnquiry", {
@@ -69,6 +99,9 @@ class Feature extends React.Component {
           console.log(response, "response")
         })
         .catch(err => console.log(err));
+      // window.localStorage.clear();
+      // history.push("/");
+      // window.location.reload();
       setStatesFromResponse("snackbar", {
         open: true,
         variant: "Success",
@@ -115,7 +148,7 @@ class Feature extends React.Component {
                 <Divider display="none" style={{ background: "#ffdae9", boxShadow: "0px 0px 10px #d81b60" }} />
               </Grid>
               <Typography align="center"
-                style={{ color: "#808080", marginTop: "2%" }}
+                style={{ color: "#d81b60", marginTop: "2%" }}
               >
                 Let Us Know How Can We Help You
               </Typography>
@@ -132,11 +165,10 @@ class Feature extends React.Component {
                   <Grid container>
                     <Grid item md={5} xs={12}  >
                       <MuiThemeProvider theme={theme}>
-                        <TextField 
-                       className={classes.margin}
+                        <TextField color="primary"
+                          className={classes.margin}
                           value={enquiry.inputName}
-                          label="Name *"
-                          
+                          label={<span style={{ color: "#d81b60" }}>Name *</span>}
                           variant="outlined"
                           id="custom-css-outlined-input"
                           onChange={(e) => handleChange("inputName", e.target.value)}
@@ -154,10 +186,9 @@ class Feature extends React.Component {
                       <Grid item md={5} xs={12} style={{ marginLeft: "16%" }}>
                         <MuiThemeProvider theme={theme}>
                           <TextField
-                            color="primary"
                             className={classes.margin}
                             value={enquiry.inputEmail}
-                            label={<span style={{ color: "" }}>Email *</span>}
+                            label={<span style={{ color: "#d81b60" }}>Email *</span>}
                             variant="outlined"
                             id="custom-css-outlined-input"
                             onChange={(e) => handleChange("inputEmail", e.target.value)}
@@ -178,7 +209,7 @@ class Feature extends React.Component {
                           <TextField
                             value={enquiry.inputEmail}
                             className={classes.margin}
-                            label={<span style={{ color: "" }}>Email *</span>}
+                            label={<span style={{ color: "#d81b60" }}>Email *</span>}
                             variant="outlined"
                             id="custom-css-outlined-input"
                             onChange={(e) => handleChange("inputEmail", e.target.value)}
@@ -198,7 +229,7 @@ class Feature extends React.Component {
                         <TextField
                           value={enquiry.inputSubject}
                           className={classes.margin}
-                          label={<span style={{ color: "" }}>Subject *</span>}
+                          label={<span style={{ color: "#d81b60" }}>Subject *</span>}
                           variant="outlined"
                           id="custom-css-outlined-input"
                           onChange={(e) => handleChange("inputSubject", e.target.value)}
@@ -218,7 +249,7 @@ class Feature extends React.Component {
                           value={enquiry.inputAdditional_info}
                           multiline
                           className={classes.margin}
-                          label={<span style={{ color: "" }}>Type your text here *</span>}
+                          label={<span style={{ color: "#d81b60" }}>Type your text here *</span>}
                           variant="outlined"
                           id="custom-css-outlined-input"
                           onChange={(e) => handleChange("inputAdditional_info", e.target.value)}
@@ -240,7 +271,7 @@ class Feature extends React.Component {
                 </Hidden>
               </Grid>
               <Grid align="center">
-                <Button variant="outlined" color="grey" style={{ marginBottom: "2%", marginTop: "1%" }} onClick={() => this.OnClickSubmit()}>
+                <Button variant="outlined" color="primary" style={{ marginBottom: "2%", marginTop: "1%" }} onClick={() => this.OnClickSubmit()}>
                   Submit</Button>
               </Grid>
               <Divider display="none" style={{ background: "#ffdae9", boxShadow: "0px 0px 10px #d81b60", marginBottom: "2%" }} />
